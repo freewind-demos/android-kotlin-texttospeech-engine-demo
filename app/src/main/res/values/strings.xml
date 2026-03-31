@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TTS 引擎 Demo</string>
+    <string name="label_input">朗读内容（每行一段，与 Legado 类似排队朗读）</string>
+    <string name="hint_input">第一行。\n第二行会接在第一行后面播放。</string>
+    <string name="action_speak">朗读</string>
+    <string name="action_stop">停止</string>
+    <string name="label_speed">语速倍数</string>
+    <string name="follow_system_rate">跟随系统</string>
+    <string name="empty_input">请先输入文字</string>
+    <string name="tts_not_ready">语音引擎仍在初始化，请稍后再试</string>
+    <string name="tts_init_failed">TTS 初始化失败</string>
+    <string name="speak_error">某段朗读入队失败</string>
+    <string name="lang_missing">当前系统语言可能缺少离线语音数据，可在系统设置中下载</string>
+    <string name="status_ready">引擎已就绪</string>
+    <string name="status_init_failed">引擎初始化失败</string>
+    <string name="status_queued">已加入朗读队列，共 %1$d 段</string>
+    <string name="status_stopped">已停止</string>
+    <string name="status_speaking">正在读：%1$s</string>
+    <string name="status_done_chunk">完成：%1$s</string>
+    <string name="status_error">朗读出错，错误码 %1$d</string>
+</resources>
