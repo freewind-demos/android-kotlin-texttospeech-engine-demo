@@ -65,42 +65,45 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     override fun onInit(status: Int) {
-        if (status != TextToSpeech.SUCCESS) {
-            Toast.makeText(this, R.string.tts_init_failed, Toast.LENGTH_LONG).show()
-            binding.textStatus.setText(R.string.status_init_failed)
-            return
+        // Callback may run off the main thread on some devices; all UI + typical TTS setup on UI thread.
+        runOnUiThread {
+            if (status != TextToSpeech.SUCCESS) {
+                Toast.makeText(this, R.string.tts_init_failed, Toast.LENGTH_LONG).show()
+                binding.textStatus.setText(R.string.status_init_failed)
+                return@runOnUiThread
+            }
+            textToSpeech?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+                override fun onStart(utteranceId: String?) {
+                    runOnUiThread {
+                        binding.textStatus.text = getString(R.string.status_speaking, utteranceId.orEmpty())
+                    }
+                }
+
+                override fun onDone(utteranceId: String?) {
+                    runOnUiThread {
+                        binding.textStatus.text = getString(R.string.status_done_chunk, utteranceId.orEmpty())
+                    }
+                }
+
+                override fun onError(utteranceId: String?, errorCode: Int) {
+                    runOnUiThread {
+                        binding.textStatus.text = getString(R.string.status_error, errorCode)
+                    }
+                }
+
+                @Deprecated("Deprecated in Java")
+                override fun onError(utteranceId: String?) {}
+            })
+
+            val tts = textToSpeech ?: return@runOnUiThread
+            val langResult = tts.setLanguage(Locale.getDefault())
+            if (langResult == TextToSpeech.LANG_MISSING_DATA || langResult == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Toast.makeText(this, R.string.lang_missing, Toast.LENGTH_LONG).show()
+            }
+            ttsReady = true
+            applySpeechRate()
+            binding.textStatus.setText(R.string.status_ready)
         }
-        textToSpeech?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(utteranceId: String?) {
-                runOnUiThread {
-                    binding.textStatus.text = getString(R.string.status_speaking, utteranceId.orEmpty())
-                }
-            }
-
-            override fun onDone(utteranceId: String?) {
-                runOnUiThread {
-                    binding.textStatus.text = getString(R.string.status_done_chunk, utteranceId.orEmpty())
-                }
-            }
-
-            override fun onError(utteranceId: String?, errorCode: Int) {
-                runOnUiThread {
-                    binding.textStatus.text = getString(R.string.status_error, errorCode)
-                }
-            }
-
-            @Deprecated("Deprecated in Java")
-            override fun onError(utteranceId: String?) {}
-        })
-
-        val tts = textToSpeech ?: return
-        val langResult = tts.setLanguage(Locale.getDefault())
-        if (langResult == TextToSpeech.LANG_MISSING_DATA || langResult == TextToSpeech.LANG_NOT_SUPPORTED) {
-            Toast.makeText(this, R.string.lang_missing, Toast.LENGTH_LONG).show()
-        }
-        ttsReady = true
-        applySpeechRate()
-        binding.textStatus.setText(R.string.status_ready)
     }
 
     /** 勾选「跟随系统」时重启引擎，避免沿用上一次 setSpeechRate。 */

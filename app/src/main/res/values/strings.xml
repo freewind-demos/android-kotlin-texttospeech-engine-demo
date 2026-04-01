@@ -2,7 +2,8 @@
 <resources>
     <string name="app_name">TTS 引擎 Demo</string>
     <string name="label_input">朗读内容（每行一段，与 Legado 类似排队朗读）</string>
-    <string name="hint_input">第一行。\n第二行会接在第一行后面播放。</string>
+    <string name="hint_input">每行一段，换行后排队播放</string>
+    <string name="default_reading_sample">今天天气不错，很适合出门散步、顺便买杯咖啡。\nHere is a short English sentence for the TTS demo.\n第三段试试中英文混在一起：会议改到 Friday 下午三点了，记得 check your calendar。</string>
     <string name="action_speak">朗读</string>
     <string name="action_stop">停止</string>
     <string name="label_speed">语速倍数</string>
