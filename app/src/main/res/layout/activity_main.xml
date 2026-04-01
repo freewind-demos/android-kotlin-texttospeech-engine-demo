@@ -15,7 +15,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_input"
-            android:textAppearance="?attr/textAppearanceBodyMedium" />
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="@dimen/tts_text_title"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editText"
@@ -25,8 +27,11 @@
             android:gravity="top|start"
             android:hint="@string/hint_input"
             android:inputType="textMultiLine|textCapSentences"
+            android:lineSpacingMultiplier="1.15"
             android:minLines="6"
-            android:text="@string/default_reading_sample" />
+            android:text="@string/default_reading_sample"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="@dimen/tts_text_editor" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,14 +46,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="@string/action_speak" />
+                android:minHeight="52dp"
+                android:text="@string/action_speak"
+                android:textSize="@dimen/tts_text_button" />
 
             <Button
                 android:id="@+id/buttonStop"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/action_stop" />
+                android:minHeight="52dp"
+                android:text="@string/action_stop"
+                android:textSize="@dimen/tts_text_button" />
         </LinearLayout>
 
         <LinearLayout
@@ -61,14 +70,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_speed" />
+                android:text="@string/label_speed"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="@dimen/tts_text_row" />
 
             <TextView
                 android:id="@+id/textSpeedValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                tools:text="1.0" />
+                android:textColor="?attr/colorPrimary"
+                android:textSize="@dimen/tts_text_value"
+                android:textStyle="bold"
+                tools:text="1.0×" />
 
             <android.widget.Space
                 android:layout_width="0dp"
@@ -79,15 +93,18 @@
                 android:id="@+id/switchFollowSystem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/follow_system_rate" />
+                android:text="@string/follow_system_rate"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="@dimen/tts_text_row" />
         </LinearLayout>
 
         <SeekBar
             android:id="@+id/seekSpeechRate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:max="45"
+            android:paddingVertical="8dp"
             android:progress="5" />
 
         <TextView
@@ -95,8 +112,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textAppearance="?attr/textAppearanceBodySmall"
-            android:textColor="?android:attr/textColorSecondary"
+            android:lineSpacingMultiplier="1.2"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="@dimen/tts_text_status"
             tools:text="状态" />
     </LinearLayout>
 </ScrollView>
